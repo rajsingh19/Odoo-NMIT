@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import uuid from "../utils/uuid";
 
 const AuthCtx = createContext(null);
 
@@ -29,7 +30,7 @@ export function AuthProvider({ children }){
   const signup = (email, password, username) => {
     const users = getUsers();
     if(users.some(u => u.email === email)) throw new Error("Email already exists");
-    const newUser = { id: crypto.randomUUID(), email, password, username };
+    const newUser = { id: uuid(), email, password, username };
     users.push(newUser);
     setUsers(users);
     localStorage.setItem(LS_SESSION, JSON.stringify(newUser));

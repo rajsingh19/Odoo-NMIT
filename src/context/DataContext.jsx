@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useAuth } from "./AuthContext";
+import uuid from "../utils/uuid";
 
 const DataCtx = createContext(null);
 
@@ -22,7 +23,7 @@ export function DataProvider({ children }){
   }, []);
 
   const addProduct = (prod) => {
-    const p = { ...prod, id: crypto.randomUUID(), ownerId: user?.id ?? "anon", createdAt: Date.now() };
+    const p = { ...prod, id: uuid(), ownerId: user?.id ?? "anon", createdAt: Date.now() };
     const next = [p, ...getProducts()];
     setProducts(next);
     setProductsState(next);
